@@ -1,0 +1,2 @@
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDUAto/xQ2PO5L2t+FvwWWhcqVreQJ+MvRZcP3+Vrhfm gregory.hatcher@AMAC104.local
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ6ekCSzMgl3hYFomyfp7IHzyUOvF5qIMn8UiL6mlco6 john.stigerwalt
