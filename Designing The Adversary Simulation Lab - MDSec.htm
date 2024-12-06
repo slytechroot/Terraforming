@@ -1,0 +1,1764 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html lang="en-GB" class="no-js ie ie6 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 7 ]><html lang="en-GB" class="no-js ie ie7 lte7 lte8 lte9"><![endif]-->
+<!--[if IE 8 ]><html lang="en-GB" class="no-js ie ie8 lte8 lte9"><![endif]-->
+<!--[if IE 9 ]><html lang="en-GB" class="no-js ie ie9 lte9"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-GB" class="no-js"><!--<![endif]-->
+	
+	<head>
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-67981177-1" type="c69b1068e3d6828ff35a0303-text/javascript"></script>
+		<script type="c69b1068e3d6828ff35a0303-text/javascript">
+	  		window.dataLayer = window.dataLayer || [];
+	  		function gtag(){dataLayer.push(arguments);}
+	  		gtag('js', new Date());
+
+	  		gtag('config', 'UA-67981177-1');
+		</script>
+		<meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    
+	    <title>Designing The Adversary Simulation Lab - MDSec</title>
+	           
+		<!-- iPhone Scaling 1:1 (RESPONSIVE) -->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+			    	   		
+		<!-- Favicons Start -->
+		<link rel="apple-touch-icon" sizes="57x57" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/apple-icon-180x180.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="96x96" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/favicon-96x96.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/favicons/favicon-16x16.png">
+		<link rel="manifest" href="/manifest.json">
+		<meta name="msapplication-TileColor" content="#ffffff">
+		<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+		<!-- Favicons End -->   
+	        
+		<!-- Typekit Fonts -->
+		<!--<link rel="stylesheet" href="https://use.typekit.net/jsa1tji.css">-->
+		<link rel="stylesheet" href="https://use.typekit.net/icv6vdt.css">
+	    <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+	<style>img:is([sizes="auto" i], [sizes^="auto," i]) { contain-intrinsic-size: 3000px 1500px }</style>
+	
+	<!-- This site is optimized with the Yoast SEO plugin v24.0 - https://yoast.com/wordpress/plugins/seo/ -->
+	<link rel="canonical" href="https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/" />
+	<meta property="og:locale" content="en_GB" />
+	<meta property="og:type" content="article" />
+	<meta property="og:title" content="Designing The Adversary Simulation Lab - MDSec" />
+	<meta property="og:description" content="As some of you will know, we have recently entered into the Red Team training space. Before deciding to create our course now known as “Adversary Simulation and Red Team..." />
+	<meta property="og:url" content="https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/" />
+	<meta property="og:site_name" content="MDSec" />
+	<meta property="article:published_time" content="2020-04-10T10:28:12+00:00" />
+	<meta property="article:modified_time" content="2020-08-14T11:44:02+00:00" />
+	<meta property="og:image" content="https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png" />
+	<meta name="author" content="Admin" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@mdseclabs" />
+	<meta name="twitter:site" content="@mdseclabs" />
+	<meta name="twitter:label1" content="Written by" />
+	<meta name="twitter:data1" content="Admin" />
+	<meta name="twitter:label2" content="Estimated reading time" />
+	<meta name="twitter:data2" content="27 minutes" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#article","isPartOf":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/"},"author":{"name":"Admin","@id":"https://www.mdsec.co.uk/#/schema/person/17b494d22ae189270c1e0e41b25fcae3"},"headline":"Designing The Adversary Simulation Lab","datePublished":"2020-04-10T10:28:12+00:00","dateModified":"2020-08-14T11:44:02+00:00","mainEntityOfPage":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/"},"wordCount":3832,"publisher":{"@id":"https://www.mdsec.co.uk/#organization"},"image":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#primaryimage"},"thumbnailUrl":"https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png","articleSection":["ActiveBreach","Adversary Simulation","All","Red Team"],"inLanguage":"en-GB"},{"@type":"WebPage","@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/","url":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/","name":"Designing The Adversary Simulation Lab - MDSec","isPartOf":{"@id":"https://www.mdsec.co.uk/#website"},"primaryImageOfPage":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#primaryimage"},"image":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#primaryimage"},"thumbnailUrl":"https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png","datePublished":"2020-04-10T10:28:12+00:00","dateModified":"2020-08-14T11:44:02+00:00","breadcrumb":{"@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#breadcrumb"},"inLanguage":"en-GB","potentialAction":[{"@type":"ReadAction","target":["https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/"]}]},{"@type":"ImageObject","inLanguage":"en-GB","@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#primaryimage","url":"https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png","contentUrl":"https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png"},{"@type":"BreadcrumbList","@id":"https://www.mdsec.co.uk/2020/04/designing-the-adversary-simulation-lab/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.mdsec.co.uk/"},{"@type":"ListItem","position":2,"name":"Designing The Adversary Simulation Lab"}]},{"@type":"WebSite","@id":"https://www.mdsec.co.uk/#website","url":"https://www.mdsec.co.uk/","name":"MDSec","description":"Unrivalled Security Consulting &amp; Training","publisher":{"@id":"https://www.mdsec.co.uk/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.mdsec.co.uk/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-GB"},{"@type":"Organization","@id":"https://www.mdsec.co.uk/#organization","name":"MDSec","url":"https://www.mdsec.co.uk/","logo":{"@type":"ImageObject","inLanguage":"en-GB","@id":"https://www.mdsec.co.uk/#/schema/logo/image/","url":"https://www.mdsec.co.uk/wp-content/uploads/2020/08/MDSec-Logo-Blue.png","contentUrl":"https://www.mdsec.co.uk/wp-content/uploads/2020/08/MDSec-Logo-Blue.png","width":1500,"height":1000,"caption":"MDSec"},"image":{"@id":"https://www.mdsec.co.uk/#/schema/logo/image/"},"sameAs":["https://x.com/mdseclabs"]},{"@type":"Person","@id":"https://www.mdsec.co.uk/#/schema/person/17b494d22ae189270c1e0e41b25fcae3","name":"Admin","image":{"@type":"ImageObject","inLanguage":"en-GB","@id":"https://www.mdsec.co.uk/#/schema/person/image/","url":"https://secure.gravatar.com/avatar/ea6be35ff31bf7eba02c999d1d41eff2?s=96&d=wp_user_avatar&r=g","contentUrl":"https://secure.gravatar.com/avatar/ea6be35ff31bf7eba02c999d1d41eff2?s=96&d=wp_user_avatar&r=g","caption":"Admin"},"sameAs":["https://x.com/mdseclabs"],"url":"https://www.mdsec.co.uk/author/dominic/"}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel='stylesheet' id='wp-block-library-css' href='https://www.mdsec.co.uk/wp-includes/css/dist/block-library/style.min.css?ver=8ec5aee54c4933b4c67aa5b74f1e261c' type='text/css' media='all' />
+<style id='classic-theme-styles-inline-css' type='text/css'>
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+</style>
+<style id='global-styles-inline-css' type='text/css'>
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgba(6,147,227,1) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgba(252,185,0,1) 0%,rgba(255,105,0,1) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgba(255,105,0,1) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgba(255, 255, 255, 1), 6px 6px rgba(0, 0, 0, 1);--wp--preset--shadow--crisp: 6px 6px 0px rgba(0, 0, 0, 1);}:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+:where(.wp-block-post-template.is-layout-flex){gap: 1.25em;}:where(.wp-block-post-template.is-layout-grid){gap: 1.25em;}
+:where(.wp-block-columns.is-layout-flex){gap: 2em;}:where(.wp-block-columns.is-layout-grid){gap: 2em;}
+:root :where(.wp-block-pullquote){font-size: 1.5em;line-height: 1.6;}
+</style>
+<link rel='stylesheet' id='taxonomy-image-plugin-public-css' href='https://www.mdsec.co.uk/wp-content/plugins/taxonomy-images/css/style.css?ver=0.9.6' type='text/css' media='screen' />
+<link rel='stylesheet' id='style-css' href='https://www.mdsec.co.uk/wp-content/themes/mdsec/css/style.css?ver=1.1.5' type='text/css' media='all' />
+<link rel='stylesheet' id='prism-css-css' href='https://www.mdsec.co.uk/wp-content/themes/mdsec/css/solarized_dark.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='flickity-css-css' href='https://www.mdsec.co.uk/wp-content/themes/mdsec/css/flickity.min.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='hamburger-css-css' href='https://www.mdsec.co.uk/wp-content/themes/mdsec/css/hamburgers.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://www.mdsec.co.uk/wp-content/themes/mdsec/css/font-awesome.min.css?ver=8ec5aee54c4933b4c67aa5b74f1e261c' type='text/css' media='all' />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/html5shiv.js?ver=3.7.3" id="html5js-js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/respond.js?ver=1.3.1" id="respond-script-js"></script>
+<![endif]-->
+<!--[if lt IE 9]>
+<script type="text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/selectivizr-min.js?ver=1.0.2" id="selectivizr-script-js"></script>
+<![endif]-->
+<link rel="https://api.w.org/" href="https://www.mdsec.co.uk/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://www.mdsec.co.uk/wp-json/wp/v2/posts/1960" /><link rel='shortlink' href='https://www.mdsec.co.uk/?p=1960' />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://www.mdsec.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.mdsec.co.uk%2F2020%2F04%2Fdesigning-the-adversary-simulation-lab%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://www.mdsec.co.uk/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.mdsec.co.uk%2F2020%2F04%2Fdesigning-the-adversary-simulation-lab%2F&#038;format=xml" />
+		<style type="text/css" id="wp-custom-css">
+			.insights-content p
+{
+	font-family: titling-gothic-fb,sans-serif;
+	color: #777a85;
+}
+
+.insights-content ul li
+{
+	font-family: titling-gothic-fb,sans-serif;
+color: #777a85;
+}
+
+
+.insights-content h2
+{
+	font-family: fabrikat_mono_regular;
+	font-weight: bold;
+}
+
+.insights-content figure
+{
+	justify-content: center;
+}
+
+.insights-content .wp-block-code code {
+    max-width: 1000px;
+    display: block;
+    overflow-x: auto;
+    color: #839496;
+    margin: 0 auto;
+    -webkit-text-size-adjust: none;
+    font-size: 1.3rem;
+    line-height: 20px;
+		padding: 2px 0px;
+}		</style>
+					    
+	</head>
+	    
+	<body class="post-template-default single single-post postid-1960 single-format-standard">
+    <!--[if lt IE 7]>
+        <div class="browse-happy">
+        	 <a href="https://www.mdsec.co.uk">
+				<div id="logo">Logo</div>
+			</a>
+        	<p>You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        </div>    	
+    <![endif]-->              
+	
+	<!-- Site Wrapper Start --> 
+	<div class="site-wrapper">
+		
+	<!-- Header Start --> 
+	<header class="clearfix">
+		<div class="logo">
+			<a href="https://www.mdsec.co.uk" title="MDSec">
+				<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 188.3 50" style="enable-background:new 0 0 188.3 50;" xml:space="preserve">
+				<g>
+					<g>
+						<path class="st0" d="M71.3,49.7V33.1l-7.7,16.5h-5.9l-7.5-16.5v16.5h-5.7V24.9h7.7l8.5,18.9l8.7-18.9H77v24.8H71.3z"/>
+						<path class="st0" d="M95.8,49.7H80V24.9h15.6c5.7,0,9,1.6,10.6,4.4c1.2,1.8,1.6,4,1.6,7.6c0,3.9-0.4,6.1-1.5,8
+							C104.7,47.9,101.4,49.7,95.8,49.7z M101.9,37c0-2.1-0.3-3.9-1-4.8c-1.1-1.7-2.9-2.5-6.2-2.5H86v15h8.6c3.4,0,5.3-0.8,6.4-2.4
+							C101.7,41.3,101.9,39.3,101.9,37z"/>
+						<path class="st0" d="M125.2,50c-8.7,0-13.1-2.8-13.4-7.9h2.8c0.2,3.7,4.1,5.4,10.6,5.4c6.9,0,9.3-1.8,9.3-4.5c0-2.9-2.1-4.1-9.9-5
+							c-5.9-0.7-12.3-1.4-12.3-6.8c0-3.6,3.1-6.7,11.8-6.7c8.5,0,11.9,3.5,12.7,7.3h-2.9c-0.7-2.9-3.5-4.8-9.9-4.8
+							c-6.3,0-8.9,1.7-8.9,4.1c0,3.4,4.9,3.9,10.1,4.4c7.5,0.8,12.1,2.1,12.1,7.2C137.3,47.2,133.8,50,125.2,50z"/>
+						<path class="st0" d="M151.9,50c-7.3,0-11.6-2.8-11.6-9.2c0-5.8,4.3-8.9,11.5-8.9c8.1,0,11.7,4,11.4,10h-20.3c0.1,3.8,3.5,6,9.2,6
+							c5.9,0,7.9-2.2,8.3-3.5h2.6C162.2,47.2,159.3,50,151.9,50z M151.7,34c-5.8,0-8.9,2.3-8.9,5.8h17.7C160.5,36.4,157.9,34,151.7,34z"
+							/>
+						<path class="st0" d="M185.7,38.5c-0.1-0.8-0.3-1.4-0.9-2c-1.2-1.4-3.7-2.4-7.4-2.4c-3.8,0-6.4,0.9-7.9,2.7c-0.9,1-1.2,2.4-1.2,4.2
+							c0,1.9,0.4,3.3,1.3,4.3c1.4,1.7,4.1,2.5,7.9,2.5c3.7,0,5.9-0.7,7.2-1.9c0.6-0.6,1-1.5,1.1-2.2h2.6c-0.2,1.3-0.7,2.6-1.6,3.5
+							C185,49,182,50,177.3,50c-4.8,0-8.1-1.1-9.9-3.3c-1.2-1.4-1.8-3.3-1.8-5.8c0-2.3,0.6-4.2,1.7-5.6c1.9-2.2,5.3-3.5,9.9-3.5
+							c5.3,0,8.4,1.5,9.8,3.5c0.8,1,1,2.1,1.1,3.2H185.7z"/>
+					</g>
+					<path class="st0" d="M31,44.1H2c-1.1,0-2,0.9-2,2v3.5h32.9V46C32.9,45,32,44.1,31,44.1z"/>
+					<path class="st0" d="M19.5,19.2l0.3,0c0.9-0.1,1.6-0.4,2.3-0.9l0,0l3,2.5c0.3,0.3,0.7,0.5,1.1,0.6c1.2,0.3,2.4-0.2,3-1.2l1.8-1.9
+						c0.3-0.3,0.3-0.7,0.1-1l-5.4-7.5C25.2,9.3,25,8.6,24.8,8c-0.2-1.1-0.9-2-1.9-2.5l-3.7-1.9l2.5-2.5l0,0c0,0-0.1-0.1-0.1-0.1
+						c-0.6-0.6-1.4-1-2.3-1c-0.6,0-1.1,0.1-1.6,0.4l0,0l-7.7,3.3l0,0c-4.7,2-8,6.7-8,12.1v2L5.9,14v2.7L2,20.5v2.7l3.8-3.8v2.7L2,25.9
+						v2.7l3.8-3.8v2.7L2,31.4v1.7h3.9L2,37V42H31v-0.7c0-7.7-3.2-12.2-6.5-14.4c-2.4-1.6-8.1-3.3-8.1-8.4c0.8,0.5,1.8,0.8,2.8,0.8
+						C19.3,19.2,19.4,19.2,19.5,19.2z"/>
+				</g>
+				</svg>
+			</a>
+		</div>
+							
+		<!-- Navigation Start -->   
+		<nav role="navigation" class="main-navigation" id="main-navigation">        		
+    		<ul id="menu-main-navigation" class="clearfix"><li id="menu-item-367" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-367"><a href="#">Our Services</a></li>
+<li id="menu-item-368" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-368"><a href="#">Knowledge Centre</a></li>
+<li id="menu-item-19" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-19"><a href="https://www.mdsec.co.uk/about/">About</a></li>
+<li id="menu-item-20" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20"><a href="https://www.mdsec.co.uk/contact/">Contact</a></li>
+</ul>		</nav>
+		<!-- Navigation End--> 	
+		
+		<!-- Navigation Start -->   
+		<nav role="navigation" class="mobile-navigation" id="mobile-navigation">        		
+    		<ul id="menu-mobile-navigation" class="clearfix"><li id="menu-item-373" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-373"><a href="#">Our Services</a>
+<ul class="sub-menu">
+	<li id="menu-item-374" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-374"><a href="https://www.mdsec.co.uk/our-services/adversary-simulation/">Adversary Simulation</a></li>
+	<li id="menu-item-375" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-375"><a href="https://www.mdsec.co.uk/our-services/application-security/">Application Security</a></li>
+	<li id="menu-item-376" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-376"><a href="https://www.mdsec.co.uk/our-services/penetration-testing/">Penetration Testing</a></li>
+	<li id="menu-item-377" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-377"><a href="https://www.mdsec.co.uk/our-services/response/">Response</a></li>
+</ul>
+</li>
+<li id="menu-item-378" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-378"><a href="#">Knowledge Centre</a>
+<ul class="sub-menu">
+	<li id="menu-item-379" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-379"><a href="https://www.mdsec.co.uk/knowledge-centre/insights/">Insights</a></li>
+	<li id="menu-item-380" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-380"><a href="https://www.mdsec.co.uk/knowledge-centre/research/">Research</a></li>
+	<li id="menu-item-381" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-381"><a href="https://www.mdsec.co.uk/knowledge-centre/training/">Training</a></li>
+</ul>
+</li>
+<li id="menu-item-371" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-371"><a href="https://www.mdsec.co.uk/about/">About</a></li>
+<li id="menu-item-372" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-372"><a href="https://www.mdsec.co.uk/contact/">Contact</a></li>
+</ul>		</nav>
+		<!-- Navigation End--> 		
+		
+		
+		<div class="menu-toggle">
+			<button class="hamburger hamburger--slider" type="button">
+				<span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+				</span>
+			</button>		
+		</div>		   	       		
+	</header>
+    <!-- Header End --> 
+		
+		
+	<div class="subnav">
+		<section class="content-wrapper">
+			<ul class="service-list clearfix">
+				<li class="item">
+					<a href="https://www.mdsec.co.uk/our-services/adversary-simulation/">
+						<div class="service-icon">
+							<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/icons/icon-adversary.svg" alt="Adversary">
+						</div>
+						<hgroup>
+							<h2>
+								Adversary Simulation
+							</h2>
+						</hgroup>
+						<p>Our best in class red team can deliver a holistic cyber attack simulation to provide a true evaluation of your organisation&#8217;s cyber resilience.</p>
+						
+					</a>
+				</li>
+				<li class="item">
+					<a href="https://www.mdsec.co.uk/our-services/applicaton-security/">
+						<div class="service-icon">
+							<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/icons/icon-application-security.svg" alt="Application Security">
+						</div>
+						<hgroup>
+							<h2>
+								Application <br>Security
+							</h2>
+						</hgroup>
+						<p>Leverage the team behind the industry-leading Web Application and Mobile Hacker’s Handbook series.</p>
+					</a>
+				</li>
+				<li class="item">
+					<a href="https://www.mdsec.co.uk/our-services/penetration-testing/">
+						<div class="service-icon">
+							<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/icons/icon-penetration-testing.svg" alt="Penetration Testing">
+						</div>
+						<hgroup>
+							<h2>
+								Penetration <br>Testing
+							</h2>
+						</hgroup>
+						<p>MDSec’s penetration testing team is trusted by companies from the world’s leading technology firms to global financial institutions.</p>
+					</a>
+				</li>
+				<li class="item">
+					<a href="https://www.mdsec.co.uk/our-services/response/">
+						<div class="service-icon">
+							<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/icons/icon-response.svg" alt="Response">
+						</div>
+						<hgroup>
+							<h2>
+								Response
+							</h2>
+						</hgroup>
+						<p>Our certified team work with customers at all stages of the Incident Response lifecycle through our range of proactive and reactive services.</p>
+					</a>
+				</li>
+			</ul>
+		</section>		
+	</div>
+	<div class="subnav-kc">
+		<section class="content-wrapper">
+			<ul class="service-list clearfix">
+				<li>
+					<a href="https://www.mdsec.co.uk/knowledge-centre/research/">
+						<hgroup>
+							<h2>
+								Research
+							</h2>
+						</hgroup>
+						<p>MDSec&#8217;s dedicated research team periodically releases white papers, blog posts, and tooling.</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.mdsec.co.uk/knowledge-centre/training/">
+						<hgroup>
+							<h2>
+								Training
+							</h2>
+						</hgroup>
+						<p>MDSec&#8217;s training courses are informed by our security consultancy and research functions, ensuring you benefit from the latest and most applicable trends in the field.</p>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.mdsec.co.uk/knowledge-centre/insights/">
+						<hgroup>
+							<h2>
+								Insights
+							</h2>
+						</hgroup>
+						<p>View insights from MDSec&#8217;s consultancy and research teams.</p>
+					</a>
+				</li>
+			</ul>
+		</section>		
+	</div>		
+
+	
+	<section class="insights-single-header">
+		<div class="content-wrapper">
+			<div class="the-category">
+			<span class="category">ActiveBreach</span>			</div>
+			<h1>Designing The Adversary Simulation Lab</h1>
+		</div>
+	</section>
+
+	<section class="full-width-wrapper white pad20-120">
+		<div class="content-wrapper">
+			<div class="breadcrumb-wrapper">
+				<div id="breadcrumbs">
+					<span>
+						<span><a href="https://www.mdsec.co.uk/" >Home</a> &gt; 
+							<span>
+							<a href="https://www.mdsec.co.uk/knowledge-centre/" >Knowledge Centre</a> &gt; 
+							<a href="https://www.mdsec.co.uk/knowledge-centre/insights" >Insights</a> &gt;
+								<span class="breadcrumb_last" aria-current="page">Designing The Adversary Simulation Lab</span>
+							</span>
+						</span>
+					</span>
+				</div>
+			</div>	
+
+		</div>
+		
+		<div class="insights-content">
+		
+<figure class="wp-block-image is-resized"><img fetchpriority="high" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-14.13.04-1170x674.png" alt="Designing The Adversary Simulation Lab" width="585" height="337"/></figure>
+
+
+
+<p>As some of you will know, we have recently entered into the Red Team training space. Before deciding to create our course now known as “Adversary Simulation and Red Team Tactics”, it was important to us that a number of fundamentals should be met, which meant:</p>
+
+
+
+<ul class="wp-block-list"><li>A course that is as hands on as possible, involving regular labs to be completed alongside theory material.</li><li>A training environment that is separate for each student, allowing everyone to explore without the fear of affecting anyone else.</li></ul>
+
+
+
+<p>Now on paper this sounds pretty straight forward, but if you speak to anyone who has spent enough time developing this kind of lab, you’ll quickly find that constructing something that can scale horizontally to the required number of attendees while maintaining it’s “purposeful misconfiguration” comes with a set of… unique challenges.</p>
+
+
+
+<p>Ultimately however, when everything comes together, using the right tools can result in something really nice:</p>
+
+
+
+<figure class="wp-block-embed-youtube aligncenter wp-block-embed is-type-video is-provider-youtube wp-embed-aspect-16-9 wp-has-aspect-ratio"><div class="wp-block-embed__wrapper">
+<iframe title="ActiveBreach Adversary Simulation Lab" width="500" height="281" src="https://www.youtube.com/embed/rb_ys_vPHrs?feature=oembed" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div></figure>
+
+
+
+<p>So in this post we want to walk you through the technology we used to solve these issues, as well as some of the hurdles we jumped through to get things running smoothly. The hope is that for anyone else designing a similar lab in the future, we can help to avoid some of the complications that didn’t become apparent until later in the design stage.</p>
+
+
+
+<p>As for anyone who just gets a kick out of watching environments emerge from code, we will also demonstrate some of the concepts by walking through how to create a very simple AWS based lab consisting of 2 domain controllers joined by a bi-directional trust.</p>
+
+
+
+<h2 class="wp-block-heading">Deciding On A Cloud Provider</h2>
+
+
+
+<p>The first thing to decide on when creating a lab is just what cloud provider you want to target. We already knew that our training environment would consist of a mix of Windows and Linux hosts meaning that our provider of choice would have to support environments outside of just *nix. We also knew that automation was key to all of this, allowing us to use our favourite tools such as Terraform to spin up our infrastructure upon demand.</p>
+
+
+
+<p>Initially we had 2 potential candidates, Azure and AWS, both of which came with pros and cons. An initial POC was created using the Azure platform, mostly to take advantage of the support for tools like Desired State Configuration (DSC). After a bit of scaling however it became apparent that AWS offered significant gains in speed when deploying environments, and combined with our familiarity of this platform over the years of building our Red Team infrastructure, the decision was made to use this as our target.</p>
+
+
+
+<p>Now using AWS to build a training lab does come with some limitations:</p>
+
+
+
+<ul class="wp-block-list"><li>Initially there are restrictions on the number of instances, security groups, VPCs etc. that can be deployed to any given AWS account.</li><li>While support for Windows provisioning tools is provided, during our initial assessment of AWS they were somewhat limited.</li></ul>
+
+
+
+<p>The first limitation is relatively easy to work around. With a simple request to Amazon, upper limits can be raised easily meaning that you are less restricted in the environments that you can construct.</p>
+
+
+
+<p>The second limitation however proved over time to be much more challenging. AWS’ support for automation is great, however at the time of deploying our lab, support for applying DSC policies driven by AWS was lacking. As time went on however, support for this technology increased, so I wouldn’t consider this a limitation for any newly created environments targeting Windows.</p>
+
+
+
+<p>With our cloud provider chosen, next we had to move onto actually creating some servers.</p>
+
+
+
+<h2 class="wp-block-heading">Terraform</h2>
+
+
+
+<p>Now in&nbsp;<a href="https://www.mdsec.co.uk/2020/02/testing-your-redteam-infrastructure/">previous posts</a>&nbsp;we have discussed the power of Terraform and just how easy this tool makes it to deploy infrastructure without resorting to manual configuration.</p>
+
+
+
+<p>In our case we used Terraform as the basis of constructing all of our lab infrastructure in AWS. We use the AWS VPC as the container for each student, and define several subnets:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>Attacker Subnet</strong>&nbsp;– This network consists primarily of any machines directly accessed by trainees, for example, a Kali host exposed via Apache Guacamole and Windows development host providing RDP access for crafting and testing payloads. This subnet was considered our mock Internet.</li><li><strong>Internal Subnet</strong>&nbsp;– This subnet is used to represent the internal network of our fictitious victim, hosting a mix of servers, OSs and technologies all wrapped up in an Active Directory domain.</li><li><strong>Secure Subnet</strong>&nbsp;– A subnet which hosts a second domain for our fictitious victim, simulating a restricted environment housing sensitive services.</li></ul>
+
+
+
+<p>At a very high level, this gives us a layout that would look something like this:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image1.png" alt="" class="wp-image-1877" width="587" height="571"/></figure>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>Let’s kick things off by simplifying this concept for the purpose of creating a demo lab by creating a Terraform script which will provision a VPC along with 2 subnets and 2 servers.</p>
+
+
+
+<p>We start our terraform script with our AWS configuration:</p>
+
+
+
+<pre class="wp-block-code"><code># Basic AWS configuration which will grab our keys from ENV
+provider "aws" {
+  region     = "eu-west-2"
+  access_key = ""
+  secret_key = ""
+}
+
+# Our AWS keypair
+resource "aws_key_pair" "terraformkey" {
+  key_name   = "${terraform.workspace}-terraform-lab"
+  public_key = file(var.PATH_TO_PUBLIC_KEY)
+}
+</code></pre>
+
+
+
+<p>Next up we define our VPC and subnets:</p>
+
+
+
+<pre class="wp-block-code"><code># Our VPC definition, using a default IP range of 10.0.0.0/16
+resource "aws_vpc" "lab-vpc" {
+  cidr_block           = var.VPC_CIDR
+  enable_dns_support   = true
+  enable_dns_hostnames = true
+}
+
+# Default route required for the VPC to push traffic via gateway
+resource "aws_route" "first-internet-route" {
+  route_table_id         = aws_vpc.lab-vpc.main_route_table_id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.lab-vpc-gateway.id
+}
+
+# Gateway which allows outbound and inbound internet access to the VPC
+resource "aws_internet_gateway" "lab-vpc-gateway" {
+  vpc_id = aws_vpc.lab-vpc.id
+}
+
+# Create our first subnet (Defaults to 10.0.1.0/24)
+resource "aws_subnet" "first-vpc-subnet" {
+  vpc_id = aws_vpc.lab-vpc.id
+
+  cidr_block        = var.FIRST_SUBNET_CIDR
+  availability_zone = "eu-west-2a"
+
+  tags = {
+    Name = "First Subnet"
+  }
+}
+
+# Create our second subnet (Defaults to 10.0.2.0/24)
+resource "aws_subnet" "second-vpc-subnet" {
+  vpc_id = aws_vpc.lab-vpc.id
+
+  cidr_block        = var.SECOND_SUBNET_CIDR
+  availability_zone = "eu-west-2a"
+
+  tags = {
+    Name = "Second Subnet"
+  }
+}
+
+# Set DHCP options for delivering things like DNS servers
+resource "aws_vpc_dhcp_options" "first-dhcp" {
+  domain_name          = "first.local"
+  domain_name_servers  = &#91;var.FIRST_DC_IP, var.PUBLIC_DNS]
+  ntp_servers          = &#91;var.FIRST_DC_IP]
+  netbios_name_servers = &#91;var.FIRST_DC_IP]
+  netbios_node_type    = 2
+
+  tags = {
+    Name = "First DHCP"
+  }
+}
+
+# Associate our DHCP configuration with our VPC
+resource "aws_vpc_dhcp_options_association" "first-dhcp-assoc" {
+  vpc_id          = aws_vpc.lab-vpc.id
+  dhcp_options_id = aws_vpc_dhcp_options.first-dhcp.id
+}
+</code></pre>
+
+
+
+<p>With the VPC and subnets configured, we next create 2 hosts:</p>
+
+
+
+<pre class="wp-block-code"><code># Our first domain controller of the "first.local" domain
+resource "aws_instance" "first-dc" {
+  ami                         = data.aws_ami.latest-windows-server.image_id
+  instance_type               = "t2.small"
+  key_name                    = aws_key_pair.terraformkey.key_name
+  associate_public_ip_address = true
+  subnet_id                   = aws_subnet.first-vpc-subnet.id
+  private_ip                  = var.FIRST_DC_IP
+
+  tags = {
+    Name = "${terraform.workspace}-First-DC"
+  }
+
+  vpc_security_group_ids = &#91;
+    aws_security_group.first-sg.id,
+  ]
+}
+
+# Our second domain controller of the "second.local" domain
+resource "aws_instance" "second-dc" {
+  ami                         = data.aws_ami.latest-windows-server.image_id
+  instance_type               = "t2.small"
+  key_name                    = aws_key_pair.terraformkey.key_name
+  associate_public_ip_address = true
+  subnet_id                   = aws_subnet.second-vpc-subnet.id
+  private_ip                  = var.SECOND_DC_IP
+
+  tags = {
+    Name = "${terraform.workspace}-Second-DC"
+  }
+
+  vpc_security_group_ids = &#91;
+    aws_security_group.second-sg.id,
+  ]
+}
+</code></pre>
+
+
+
+<p>You’ll notice that there are a lot of references to variables within these files. Over time this helps to keep your Terraform scripts clean without hardcoding values which are likely to change over time, separating your variables into another file such as:</p>
+
+
+
+<pre class="wp-block-code"><code>variable "PATH_TO_PUBLIC_KEY" {
+  default = "./keys/terraformkey.pub"
+}
+
+variable "VPC_CIDR" {
+  default = "10.0.0.0/16"
+}
+
+variable "FIRST_SUBNET_CIDR" {
+  default = "10.0.1.0/24"
+}
+
+variable "SECOND_SUBNET_CIDR" {
+  default = "10.0.2.0/24"
+}
+
+variable "FIRST_DC_IP" {
+  default = "10.0.1.100"
+}
+
+variable "SECOND_DC_IP" {
+  default = "10.0.2.100"
+}
+
+variable "PUBLIC_DNS" {
+  default = "1.1.1.1"
+}
+
+variable "MANAGEMENT_IP" {
+  default = "3.1.3.3/32"
+}
+</code></pre>
+
+
+
+<p>At this point we will pause the creation of our Terraform scripts to identify what else would be required to provision this environment. Take a deep breath, because next up is DSC.</p>
+
+
+
+<h2 class="wp-block-heading">Desired State Configuration</h2>
+
+
+
+<p>OK, so Desired State Configuration (DSC) sucks. As much as I’ve tried to like it over the long time I’ve been playing with it, it always finds a new and interesting ways to surprise me with just how terrible it can be. But it still remains one of the few viable options to provision a Windows OS in a similar way to our beloved Ansible on *nix systems.</p>
+
+
+
+<p>One of the annoying elements to provisioning Windows systems are the many reboots required during installation and configuration, as well as the numerous dependencies between hosts and services, such as waiting for a domain controller to come online before a workstation can be configured to join that domain. DSC gives us the ability to handle these issues in a manageable way, by providing functionality to waiting for resources to come online and handle resuming of provisioning after a reboot is performed.</p>
+
+
+
+<p>DSC can be applied via one of two modes, push or pull. In pull mode a pull server is required which unlike Azure was not supported via Amazon’s management tools at the time of creating our lab. So instead, provisioning is completed via pushing our DSC configuration to hosts.</p>
+
+
+
+<p>Now DSC is really where your Windows based vulnerabilities are defined, from misconfiguring Active Directory to applying weak ACL’s to files and services. To give you an idea of just a few of the things we were able to introduce within DSC:</p>
+
+
+
+<ul class="wp-block-list"><li>Kerberos based vulnerabilities (Kerberoast, AS-REP roast, unconstrained delegation and constrained delegation based weaknesses etc)</li><li>LAPS</li><li>Active directory ACL/ACE based weaknesses</li><li>Host based ACL/ACE based weaknesses</li><li>GPO permission issues</li><li>SQL server misconfiguration</li><li>AppLocker deployment</li><li>Microsoft Office configuration and automation</li></ul>
+
+
+
+<p>To purposefully misconfigure an environment using DSC is an experience, but surprisingly it holds up pretty well with the majority of tasks required to build our vulnerable networks.</p>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>Let’s continue our simple lab exercise by creating a DSC script to provision our hosts, starting with a&nbsp;<strong>Configuration</strong>&nbsp;block.</p>
+
+
+
+<p>DSC includes a number of built-in resources, which provide functionality such as creating users, setting group members, creating files and directories etc. Support is also included for importing third-party resources exposing functionality such as managing Active Directory. For our sample lab we will leverage 2 DSC modules,&nbsp;<strong>ActiveDirectoryDsc&nbsp;</strong>and<strong>&nbsp;NetworkingDsc</strong>:</p>
+
+
+
+<pre class="wp-block-code"><code>Configuration Lab {
+    param
+    (
+        &#91;Parameter(Mandatory)]
+        &#91;pscredential]$safemodeAdministratorCred,
+        &#91;Parameter(Mandatory)]
+        &#91;pscredential]$domainCred,
+        &#91;Parameter(Mandatory)]
+        &#91;string]$firstDomainName,
+        &#91;Parameter(Mandatory)]
+        &#91;string]$secondDomainName,
+        &#91;Parameter(Mandatory)]
+        &#91;pscredential]$firstDomainCred
+    )
+
+    Import-DscResource -ModuleName ActiveDirectoryDsc
+    Import-DscResource -ModuleName NetworkingDsc
+
+    # Resources will go here
+}</code></pre>
+
+
+
+<p>Within our configuration we’re going to define 2 nodes which will act as domain controllers joined via a bi-directional trust. Let’s focus on our first node to show how our DC will be built:</p>
+
+
+
+<pre class="wp-block-code"><code>...
+    Node "First" {
+        # Install ADDS role
+        WindowsFeature ADDSInstall {
+            Ensure = "Present"
+            Name = "AD-Domain-Services"
+        }
+
+        # Optional GUI tools
+        WindowsFeature ADDSTools {
+            Ensure = "Present"
+            Name = "RSAT-ADDS"
+        }
+
+        # Create our AdminUser account 
+        User AdminUser {
+            Ensure = "Present"
+            UserName = $domainCred.UserName
+            Password = $domainCred
+        }
+
+        # Add our AdminUser to the local Administrators group
+        Group Administrators {
+            GroupName = "Administrators"
+            MembersToInclude = $domainCred.UserName
+            DependsOn = "&#91;User]AdminUser"
+        }
+
+        # Promote our DC
+        ADDomain CreateDC {
+            DomainName = $firstDomainName
+            Credential = $domainCred
+            SafemodeAdministratorPassword = $safemodeAdministratorCred
+            DatabasePath = 'C:\\NTDS'
+            LogPath = 'C:\\NTDS'
+            DependsOn = "&#91;WindowsFeature]ADDSInstall"
+        }
+ 
+        # Wait for the DC role to come online before we continue provisioning
+        WaitForADDomain waitFirstDomain {
+            DomainName = $firstDomainName
+            DependsOn = "&#91;ADDomain]CreateDC"
+        }
+ ...
+</code></pre>
+
+
+
+<p>Now inevitably there will be things that you want to do which will not be provided via an existing DSC module. For these tasks DSC does allow us to execute arbitrary Powershell using the&nbsp;<strong>Script</strong>&nbsp;resource. Within this kind of resource we need to define 3 values:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>GetScript</strong>&nbsp;– Used to retrieve information on the state of the resource.</li><li><strong>TestScript</strong>&nbsp;– Used to check the current state of this resource. If this block returns&nbsp;<strong>$false,</strong>&nbsp;then SetScript is called.</li><li><strong>SetScript</strong>&nbsp;– Used to actually performs the provisioning step.</li></ul>
+
+
+
+<p>Let’s see an example of how we would create a&nbsp;<strong>Script</strong>&nbsp;resource to create a DNS conditional forwarded zone for use with adding our bidirectional trust between domains:</p>
+
+
+
+<pre class="wp-block-code"><code>Script SetConditionalForwardedZone {
+  GetScript = { return @{ } }
+
+  TestScript = {
+      $zone = Get-DnsServerZone -Name "second.local" -ErrorAction SilentlyContinue
+      if ($zone -ne $null -and $zone.ZoneType -eq 'Forwarder') {
+        return $true
+      }
+
+      return $false
+  }
+
+  SetScript = {
+      $ForwardDomainName = "second.local"
+      $IpAddresses = @("10.0.2.100")
+      Add-DnsServerConditionalForwarderZone -Name "$ForwardDomainName" -ReplicationScope "Domain" -MasterServers $IpAddresses
+  }
+
+  DependsOn = "&#91;WaitForADDomain]waitFirstDomain"
+}
+</code></pre>
+
+
+
+<p>A complete example of our DSC files for the purposes of creating our simple lab can be found&nbsp;<a href="https://github.com/xpn/DemoLab/blob/master/dsc/labdsc.ps1">here</a>.</p>
+
+
+
+<p>Now DSC cannot be applied to a server in its current PowerShell form, it must first be compiled into a set of MOF files. To do this we import our DSC file and compile by invoking our&nbsp;<strong>Configuration</strong>&nbsp;block using something like:</p>
+
+
+
+<pre class="wp-block-code"><code>$ConfigData = @{
+    AllNodes = @(
+        @{
+            Nodename                    = "First"
+            Role                        = "First DC"
+            RetryCount                  = 1
+            RetryIntervalSec            = 1
+            PsDscAllowPlainTextPassword = $true
+        },
+        @{
+            Nodename                    = "Second"
+            Role                        = "Second DC"
+            RetryCount                  = 1
+            RetryIntervalSec            = 1
+            PsDscAllowPlainTextPassword = $true
+        }
+    )
+}
+
+Lab -ConfigurationData $ConfigData `
+    -firstDomainName "first.local" `
+    -secondDomainName "second.local" `
+    -domainCred (New-Object System.Management.Automation.PSCredential("admin", (ConvertTo-SecureString "DoesntMatter" -AsPlainText -Force))) `
+    -safemodeAdministratorCred (New-Object System.Management.Automation.PSCredential("admin", (ConvertTo-SecureString "DoesntMatter" -AsPlainText -Force))) `
+    -firstDomainCred (New-Object System.Management.Automation.PSCredential("first-admin", (ConvertTo-SecureString "DoesntMatter" -AsPlainText -Force)))
+</code></pre>
+
+
+
+<p>Once executed, we will see that a set of MOF’s will be created:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image2.png" alt="" class="wp-image-1878" width="393" height="123"/></figure>
+
+
+
+<p>Now that our MOF’s are generated, we next need to apply them to our created EC2 instances.</p>
+
+
+
+<h2 class="wp-block-heading">Amazon Systems Manager</h2>
+
+
+
+<p>Amazon Systems Manager (originally named Simple Systems Manager or simply SSM) is a brilliant service provided by AWS to manage, provision and test resources such as EC2. If you want to apply Ansible roles or DSC configuration to your hosts, then Systems Manager can do that. If you want to test if your hosts are in compliance with a build policy, Systems Manager can help there to.</p>
+
+
+
+<p>This service was selected early on in the development of our lab due to one nice feature of this technology, which is that each EC2 instance configured with a Systems Manager agent (installed by default on many of the Amazon AMI’s) makes an outbound connection to poll for jobs to complete. This means that we don’t have to open up remote management connectivity to all of the hosts in the lab just to apply a DSC policy and then retrospectively reconfigure everything once completed. We can instead allow each host to pull down its configuration and apply it as needed… pretty neat.</p>
+
+
+
+<p>The other advantages of course is that we also get the stability of providing Systems Manager with our configuration specification and just allowing Amazon to “make it so”, rather than the alternative which would be for us to connect to each host and maintain a WinRM connection while provisioning takes place.</p>
+
+
+
+<p>In the ActiveBreach lab, the command document that we use to provision our Windows hosts is&nbsp;<strong>AWS-ApplyDSCMofs</strong>:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image3-1024x437.png" alt="" class="wp-image-1879" width="768" height="328"/></figure>
+
+
+
+<p>This document exposes several parameters which we use to control its execution, allowing us to throw MOF’s via an S3 bucket and allow System Manager to take care of connecting to our EC2 instances and actually applying them:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image4-1024x991.png" alt="" class="wp-image-1880" width="768" height="743"/></figure>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>Now we understand just what Systems Manager is all about, let’s introduce this functionality into our own demo. First we will need to adapt our Terraform script to upload our newly generated DSC MOFs to an S3 bucket which will make them available to Systems Manager:</p>
+
+
+
+<pre class="wp-block-code"><code>variable "SSM_S3_BUCKET" {
+  default = "xpn-lab"
+}
+
+resource "aws_s3_bucket_object" "first-dc-mof" {
+	bucket = var.SSM_S3_BUCKET
+	key = "Lab/First.mof"
+	source = "./Lab/First.mof"
+	etag = "${filemd5("./Lab/First.mof")}"
+}
+
+resource "aws_s3_bucket_object" "second-dc-mof" {
+	bucket = var.SSM_S3_BUCKET
+	key = "Lab/Second.mof"
+	source = "./Lab/Second.mof"
+	etag = "${filemd5("./Lab/Second.mof")}"
+}
+</code></pre>
+
+
+
+<p>Once we have our files uploaded, we will need to configure Systems Manager to associate each configuration with our EC2 instances. To do this in Terraform we use the&nbsp;<strong>aws_ssm_association</strong>&nbsp;resource:</p>
+
+
+
+<pre class="wp-block-code"><code>resource "aws_ssm_association" "first-dc" {
+  name             = "AWS-ApplyDSCMofs"
+  association_name = "${terraform.workspace}-First-DC"
+
+  targets {
+    key    = "InstanceIds"
+    values = &#91;"${aws_instance.first-dc.id}"]
+  }
+
+  parameters = {
+    MofsToApply    = "s3:${var.SSM_S3_BUCKET}:Lab/First.mof"
+    RebootBehavior = "Immediately"
+  }
+}
+
+resource "aws_ssm_association" "second-dc" {
+  name             = "AWS-ApplyDSCMofs"
+  association_name = "${terraform.workspace}-Second-DC"
+
+  targets {
+    key    = "InstanceIds"
+    values = &#91;"${aws_instance.second-dc.id}"]
+  }
+
+  parameters = {
+    MofsToApply    = "s3:${var.SSM_S3_BUCKET}:Lab/Second.mof"
+    RebootBehavior = "Immediately"
+  }
+}
+</code></pre>
+
+
+
+<p>Now Systems Manager requires that any credentials stored within the DSC MOF files are actually pulled from the parameter store as a way of avoiding hardcoding of credentials within files typically living in repos. For us we will need to add credentials to support our DSC using the&nbsp;<strong>aws_ssm_parameter</strong>&nbsp;resource:</p>
+
+
+
+<pre class="wp-block-code"><code>resource "aws_ssm_parameter" "admin-ssm-parameter" {
+  name  = "admin"
+  type  = "SecureString"
+  value = "{\\"Username\\":\\"admin\\", \\"Password\\":\\"Password@1\\"}"
+}
+
+resource "aws_ssm_parameter" "first-admin-ssm-parameter" {
+  name  = "admin"
+  type  = "SecureString"
+  value = "{\\"Username\\":\\"first.local\\\\\\\\admin\\", \\"Password\\":\\"Password@1\\"}"
+}
+</code></pre>
+
+
+
+<p>Before we can apply our DSC configuration, there is a bit more that we need to do. First up we need to ensure that our EC2 instances have appropriate permission to actually communicate with Amazon Systems Manager. This can be done via applying of an IAM role to deployed instances which is easily done via Terraform:</p>
+
+
+
+<pre class="wp-block-code"><code>resource "aws_iam_role" "ssm_role" {
+  name = "${terraform.workspace}_ssm_role"
+
+  assume_role_policy = &lt;&lt;EOF
+{
+  "Version": "2012-10-17",
+  "Statement": &#91;
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_role_policy_attachment" "ssm_role_policy" {
+  role       = "${aws_iam_role.ssm_role.name}"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM"
+}
+
+resource "aws_iam_instance_profile" "ssm_instance_profile" {
+  name = "${terraform.workspace}_ssm_instance_profile"
+  role = "${aws_iam_role.ssm_role.name}"
+}
+</code></pre>
+
+
+
+<p>It’s worth calling out a specific weakness here,&nbsp;<strong>AmazonEC2RoleforSSM</strong>&nbsp;provides the ability for any EC2 instance with this policy applied to communicate with the required services needed to use Amazon Systems Manager. It does however expose S3 permissions look like this:</p>
+
+
+
+<pre class="wp-block-code"><code>{
+	"Effect": "Allow",
+	"Action": &#91;
+		"s3:GetBucketLocation",
+		"s3:PutObject",
+		"s3:GetObject",
+		"s3:GetEncryptionConfiguration",
+		"s3:AbortMultipartUpload",
+		"s3:ListMultipartUploadParts",
+		"s3:ListBucket",
+		"s3:ListBucketMultipartUploads"
+	],
+	"Resource": "*"
+}
+</code></pre>
+
+
+
+<p>This of course means that each EC2 instance would have access to all S3 buckets hosted on the AWS account, which if you plan on keeping this role applied to your EC2 instances outside of the initial provisioning stage, I’d certainly recommend reconsidering this.</p>
+
+
+
+<p>For us this won’t prove to be too much of an issue as the role will be removed when we roll out our lab, so we’ll stick with Amazon’s default policy for now.</p>
+
+
+
+<p>The final amendment required to our Terraform script will be to associate these policies with each AWS instance by adding the following to the 2 domain controller&nbsp;<strong>aws_instance</strong>&nbsp;resources:</p>
+
+
+
+<pre class="wp-block-code"><code>iam_instance_profile = "${aws_iam_instance_profile.ssm_instance_profile.name}"
+</code></pre>
+
+
+
+<h2 class="wp-block-heading">InSpec</h2>
+
+
+
+<p>As demonstrated in our previous&nbsp;<a href="https://www.mdsec.co.uk/2020/02/testing-your-redteam-infrastructure/">post</a>, testing of environments is important to us. And in an environment with so many moving parts, vulnerabilities, and purposeful misconfigurations, it becomes extremely important to ensure that everything is configured as expected. The last thing you want to happen is to find there is an issue with your environment the first day you deliver your training.</p>
+
+
+
+<p>To perform our testing we rely on InSpec which helps to ensure that each instance is configured as expected:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image5.png" alt="" class="wp-image-1881" width="348" height="398"/></figure>
+
+
+
+<p>We’ll come onto CI pipelines later in the post, but the benefit of this to us is the feedback we gain immediately during development if for some reason a late night change to DSC has broken something:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image6.png" alt="" class="wp-image-1882" width="344" height="161"/></figure>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>Now we have some provisioned servers to work with, let’s introduce some simple InSpec tests to ensure that our domain controllers have been deployed as expected. We’ll create our first test suite using:</p>
+
+
+
+<pre class="wp-block-code"><code>inspec init profile first-dc
+</code></pre>
+
+
+
+<p>With our template structure created we now have to populate our test cases. For our simple lab we’ll just ensure that each feature is installed:</p>
+
+
+
+<pre class="wp-block-code"><code>title 'Features'
+
+describe windows_feature('AD-Domain-Services') do
+    it { should be_installed }
+end
+
+describe windows_feature('RSAT-ADDS') do
+    it { should be_installed }
+end
+</code></pre>
+
+
+
+<p>And that our trust has been established:</p>
+
+
+
+<pre class="wp-block-code"><code>title 'Trust'
+
+describe command('Get-ADTrust -Identity "second.local"') do
+    its('stdout') { should match (/second.local/) }
+end
+</code></pre>
+
+
+
+<p>This means that once our lab has been built we can test using the following command:</p>
+
+
+
+<pre class="wp-block-code"><code>inspec exec first-domaincontroller -b winrm --user FIRST\\admin --password Password@1 -t "winrm://IPADDRESS"
+</code></pre>
+
+
+
+<p>Hopefully if everything has provisioned correctly, you will see a wall of green confirming this:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image7.png" alt="" class="wp-image-1883" width="671" height="266"/></figure>
+
+
+
+<p>More importantly, if everything hasn’t provisioned correctly (and believe me, this happens for some very random reasons), you will receive an early warning that everything is not as it should be.</p>
+
+
+
+<h2 class="wp-block-heading">Imaging</h2>
+
+
+
+<p>So by this point we have our deployed lab and we have our tests completing showing that everything is stable. The next step would be to scale this up for each attendee right? Well… no.</p>
+
+
+
+<p>Something that you will quickly learn if you try to do this is just how error prone scaling in this way can be. We’ve seen random DSC failures, intermittent Windows problems, and in quite a few cases, EC2 instances getting stuck while first coming online. We’ve even seen the edge of the cloud, but that is a story for another day.</p>
+
+
+
+<p>The other issue is of course the need to recreate environments for attendees should you need to. And DSC isn’t the quickest of technologies, meaning you don’t want your trainee waiting for half an hour for their environment to be recreated.</p>
+
+
+
+<p>To work around these problems, we decided quite early on to build a single instance of the lab, test the environment to ensure that everything was created correctly, and then image each instance into an AMI. This means that during the creation of environments before a training class is given, we can quickly create environments as required for the number of attendees on our course. It also means that should an environment need to be reset, we can quickly destroy and recreate a host in isolation without having to deal with the re-provisioning process of an entire environment.</p>
+
+
+
+<p>This imaging process in the ActiveBreach lab comes in 2 parts:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>Cleanup phase</strong>&nbsp;– During this stage we cleanup the images, removing anything left over from provisioning.</li><li><strong>AMI generation phase</strong>&nbsp;– Here we shut down each EC2 instance and generate a final AMI that will be used for deployment to our trainees.</li></ul>
+
+
+
+<p>For the cleanup phase,&nbsp;<strong>pywinrm</strong>&nbsp;is a brilliant library which allows us to execute Powershell remotely and comes in handy to remove any leftover files or bits of DSC that you’d rather cleanup.</p>
+
+
+
+<p>For AMI generation,&nbsp;<strong>boto3</strong>&nbsp;exposes AWS API’s such as the ability to create an image. Once the image is created it is tagged and ready to be deployed upon demand.</p>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>To create a set of AMIs for our lab instances, we will create a very simple Python script to leverage&nbsp;<strong>pywinrm</strong>&nbsp;and the&nbsp;<strong>boto3</strong>&nbsp;library.</p>
+
+
+
+<pre class="wp-block-code"><code>#!/usr/bin/python
+
+import winrm
+import boto3
+import time
+
+domain_user = "admin"
+domain_pass = "Password@1"
+
+class WinRMSession:
+    def __init__(self, host, username, password, use_ntlm=False):
+        self.host = host
+        self.username = username
+        self.password = password
+        self.use_ntlm = use_ntlm
+
+    def run_command(self, command, args=&#91;]):
+        if self.use_ntlm:
+            s = winrm.Session(self.host, auth=(self.username, self.password), transport="ntlm")
+        else:
+            s = winrm.Session(self.host, auth=(self.username, self.password))
+
+        try:
+            r = s.run_cmd(command, args)
+
+            print("=====&#91; STDERR ]=====")
+            print(r.std_err.decode("ascii"))
+
+            print("=====&#91; STDOUT ]=====")
+            return r.std_out.decode("ascii")
+
+        except InvalidCredentialsError as e:
+            print("Error executing winrm commands")
+
+def clean_windows_image(username, password, ip, domain_joined):
+    
+    print("====&#91; Cleaning {0} ]====".format(ip))
+
+    dsc = "Write-Output '&#91;DscLocalConfigurationManager()]' 'Configuration Meta { Node localhost { Settings { RefreshMode = \\'\\'Disabled\\'\\' } } }' > C:\\\\windows\\\\temp\\\\meta.ps1"
+    
+    s = WinRMSession(ip, username, password, use_ntlm=domain_joined)
+    print(s.run_command('powershell', &#91;'-c', 'Remove-DscConfigurationDocument -Stage Current -Force']))
+    print(s.run_command('powershell', &#91;'-c', 'Remove-DscConfigurationDocument -Stage Previous -Force']))
+    print(s.run_command('powershell', &#91;'-c', dsc]))
+    print(s.run_command('powershell', &#91;'-ep', 'bypass', '-c', 'cd C:\\\\windows\\\\temp; . .\\\\meta.ps1; Meta; Set-DscLocalConfigurationManager -Path .\\Meta']))
+
+# First we need to clean up Windows resources
+ec2 = boto3.resource('ec2')
+response = ec2.instances.filter(Filters=&#91;{'Name': 'tag:Workspace', 'Values': &#91;'imager']},{'Name': 'instance-state-name', 'Values': &#91;'running']}])
+
+for instance in response:
+    if instance.platform == "windows":
+        clean_windows_image(domain_user, domain_pass, instance.public_ip_address, True)
+           
+# Now everything is cleaned up, we image
+for instance in response:
+    for kv in instance.tags:
+            if kv&#91;"Key"] == "Name": 
+                print("====&#91; Creating AMI For {0}]====".format(kv&#91;"Value"]))
+                name = kv&#91;"Value"] + "-{0}".format(time.time())
+                instance.create_image(Name=name,Description="Lab Imager")
+</code></pre>
+
+
+
+<p>If we execute our script, what we find is that each EC2 instance containing the&nbsp;<strong>Workspace</strong>&nbsp;tag with a value of&nbsp;<strong>imager</strong>&nbsp;will be cleaned up, shut down and an AMI created:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image8-1024x107.png" alt="" class="wp-image-1884" width="768" height="80"/></figure>
+
+
+
+<h2 class="wp-block-heading">Gitlab</h2>
+
+
+
+<p>Now as you’ve seen there are a lot of moving parts to this lab, and executing each alongside all of the changes that take place during development is just not sustainable.</p>
+
+
+
+<p>I think it is known by now how much we enjoy CI/CD, so it comes as no surprise that our lab uses Gitlab CI to tie all the pieces together.</p>
+
+
+
+<p>To take our lab from source to imaging, we use the following steps within our pipeline:</p>
+
+
+
+<ul class="wp-block-list"><li><strong>Validate</strong>&nbsp;– Ensure our provided Terraform scripts are syntactically correct.</li><li><strong>Converge</strong>&nbsp;– Deploy our lab to an AWS staging environment.</li><li><strong>Test</strong>&nbsp;– Run InSpec tests to ensure that everything is built as expected.</li><li><strong>Image</strong>&nbsp;– Create AMI images for each host in the environment.</li><li><strong>Cleanup</strong>&nbsp;– Tear down the AWS staging environment.</li></ul>
+
+
+
+<p>Put together and our lab CI pipeline looks like this:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image9-1024x205.png" alt="" class="wp-image-1885" width="768" height="154"/></figure>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>To take our lab to the deployment phase we will be creating a&nbsp;<strong>gitlab-ci.yml</strong>&nbsp;file. To start this off, we first need to choose our image:</p>
+
+
+
+<pre class="wp-block-code"><code>image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+</code></pre>
+
+
+
+<p>Next we’re going to define our AWS access keys:</p>
+
+
+
+<pre class="wp-block-code"><code>variables:
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_KEY
+  AWS_DEFAULT_REGION: eu-west-2
+</code></pre>
+
+
+
+<p>As we won’t be creating our own Docker image for this lab, we will ensure that our required tools are present via:</p>
+
+
+
+<pre class="wp-block-code"><code>before_script:
+  - terraform --version
+  - apk add --update python python-dev py-pip jq gcc g++ make 
+  - pip install awscli
+</code></pre>
+
+
+
+<p>Next we define the stages of our pipeline:</p>
+
+
+
+<pre class="wp-block-code"><code>stages:
+  - validate
+  - converge
+  - test
+  - image
+  - cleanup
+</code></pre>
+
+
+
+<p>Let’s go through each stage of our pipeline to see how all this fits together. The first step is validation which is a simple case of ensuring that our Terraform scripts are actually syntactically correct when new code is committed:</p>
+
+
+
+<pre class="wp-block-code"><code>validate_terraform:
+  stage: validate
+  script:
+    - terraform init &amp;&amp; terraform validate
+</code></pre>
+
+
+
+<p>Once we know that our Terraform scripts are at least syntactically correct, we move onto the converge stage which is responsible for executing Terraform and providing AWS with our DSC scripts to execute. Now there are a few considerations that we need to make here. First is the fact that we need to save the output of our Terraform execution for a later stage, mainly so we can know what IP addresses were created. Second we need to transfer this information to a later stage (as well as make this information available for download if our build fails) of the pipeline which can be done via generating artifacts:</p>
+
+
+
+<pre class="wp-block-code"><code>deploy:
+  stage: converge
+  when: manual
+  script:
+    - terraform init 
+    - terraform workspace new imager 
+    - terraform apply --auto-approve --var ENVIRONMENT=staging
+    - terraform output --json > output.json
+  artifacts:
+    when: always
+    paths:
+      - $CI_PROJECT_DIR/terraform.tfstate.d
+      - $CI_PROJECT_DIR/output.json
+    expire_in: 1 week
+</code></pre>
+
+
+
+<p>With our environment created we next need to test our deployment with our created InSpec tests. To know which hosts to target we will invoke our InSpec tests via a very simple shell script which simply takes our previous&nbsp;<strong>output.json</strong>&nbsp;contents and parses it for the IP of the newly created host:</p>
+
+
+
+<pre class="wp-block-code"><code>#!/bin/sh
+
+USER='admin'
+PASS='Password@1'
+
+FIRST_DC_IP=$(cat ../output.json| jq -r '.&#91;"first-dc_ip"].value')
+SECOND_DC_IP=$(cat ../output.json| jq -r '.&#91;"second-dc_ip"].value')
+
+inspec exec first-dc -b winrm --user $USER --password $PASS -t "winrm://$FIRST_DC_IP"
+inspec exec second-dc -b winrm --user $USER --password $PASS -t "winrm://$SECOND_DC_IP"
+</code></pre>
+
+
+
+<p>And then we call this script via our test stage:</p>
+
+
+
+<pre class="wp-block-code"><code>inspec:
+  before_script:
+    - mkdir -p /etc/chef/accepted_licenses/
+    - echo > /etc/chef/accepted_licenses/inspec
+    - apk add ruby ruby-dev gcc g++ make jq ruby-bundler ruby-webrick ruby-etc python python-dev py-pip
+    - gem install inspec inspec-bin bigdecimal
+  stage: test
+  when: manual
+  allow_failure: true
+  dependencies:
+    - deploy
+  script:
+    - cd test &amp;&amp; ./run.sh ../output.json
+</code></pre>
+
+
+
+<p>Once our tests check out, we need to move onto the imaging stage to generate our AMIs:</p>
+
+
+
+<pre class="wp-block-code"><code>create_image:
+  image: python:3
+  stage: image
+  when: manual
+  before_script:
+    - cd .
+  script:
+    - cd imager
+    - pip install -r requirements.txt
+    - python ./imager.py
+</code></pre>
+
+
+
+<p>And finally, we need to clean up our AWS environment to avoid any unnecessary costs:</p>
+
+
+
+<pre class="wp-block-code"><code>cleanup:
+  stage: cleanup
+  when: manual
+  script:
+    - terraform workspace select imager
+    - terraform destroy --auto-approve --var ENVIRONMENT=staging
+</code></pre>
+
+
+
+<p>Once we commit this into our Gitlab instance, we will hopefully get a pipeline that looks like this:</p>
+
+
+
+<figure class="wp-block-image"><img decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image10-1024x186.png" alt="" class="wp-image-1886"/></figure>
+
+
+
+<h2 class="wp-block-heading">Deploying</h2>
+
+
+
+<p>So at this point we have our environment which has been tested and converted to AMI images on AWS. All that remains now is to create our environment when running a training course.</p>
+
+
+
+<p>To do this we again rely on Terraform, which is responsible for recreating our previous AWS structure, however instead of passing off to Amazon Systems Manager for DSC, this time we will simply build our EC2 images from the AMI, saving a lot of time and pain.</p>
+
+
+
+<p>Now there are a number of blocks within our Terraform script that we don’t want to apply to our lab when it is deployed for a training class, mainly those permissions that System Manager grants to our S3 buckets.</p>
+
+
+
+<p>To help manage multiple simultaneous deployments we use Terraform’s workspace functionality which creates isolated states to avoid trampling over each lab deployment. This means that each attendee is associated with a workspace, which gives us the ability to create, and more importantly when providing a lab environment, reset individual instances for trainees when required.</p>
+
+
+
+<h3 class="wp-block-heading">Do It Yourself</h3>
+
+
+
+<p>Let’s take our existing Terraform scripts and make a few modifications. First we want to substitute the stock Amazon AMI images with our custom created images. To do this we are going to add a range of data elements to our Terraform script which will search for our previously created AMI’s. For example, below we can see a data source which will attempt to find an AMI by name using the filter *<strong>-First-DC</strong>. If multiple AMIs are found, we tell the data source to always select the latest version:</p>
+
+
+
+<pre class="wp-block-code"><code>data "aws_ami" "first-dc" {
+  most_recent = true
+  owners      = &#91;"self"]
+  filter {
+    name   = "name"
+    values = &#91;"*-First-DC"]
+  }
+}
+</code></pre>
+
+
+
+<p>Next we’re going to add some Terraform hackery to get rid of those non-required SSM resources and S3 file uploads. We can do this by setting a&nbsp;<strong>Count</strong>&nbsp;property which evaluates to&nbsp;<strong>0</strong>&nbsp;when we don’t want a resource to be created. A simple way to do this is by evaluating a variable, for example:</p>
+
+
+
+<pre class="wp-block-code"><code>count = var.ENVIRONMENT == "deploy" ? 0 : 1
+</code></pre>
+
+
+
+<p>And with our modifications made, we can deploy by toggling the deploy configuration using:</p>
+
+
+
+<pre class="wp-block-code"><code>terraform workspace new lab01
+terraform apply --var ENVIRONMENT=deploy
+</code></pre>
+
+
+
+<p>And once deployed, what we should find is that we now have our 2 EC2 instances:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image11-1024x235.png" alt="" class="wp-image-1887" width="768" height="176"/></figure>
+
+
+
+<p>Running our provisioned and tested AMI:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image12-1024x152.png" alt="" class="wp-image-1888" width="768" height="114"/></figure>
+
+
+
+<p>With no IAM policy applied:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/image13.png" alt="" class="wp-image-1889" width="510" height="71"/></figure>
+
+
+
+<p>And a Windows domain built with an external trust:</p>
+
+
+
+<figure class="wp-block-image is-resized"><img loading="lazy" decoding="async" src="https://www.mdsec.co.uk/wp-content/uploads/2020/04/Screenshot-2020-04-17-at-10.29.43-1024x702.png" alt="" class="wp-image-1893" width="768" height="527"/></figure>
+
+
+
+<p>And there we have it, our lab is now automated, and can scale to any number of attendees required. All of the code shown in this post can be found on our Github project&nbsp;<a href="https://github.com/xpn/DemoLab">here</a>. Hopefully this walkthrough has been useful and provides a working example of just how we go about delivering our training environments.</p>
+
+
+
+<p>If you want to see this lab live, we still have spots available in our&nbsp;<a href="https://www.blackhat.com/us-20/training/schedule/index.html#adversary-simulation-and-red-team-tactics-18511">BlackHat USA training class</a>.</p>
+
+
+
+<p>This blog post was written by Adam Chester.</p>
+		</div>
+		
+		<div class="author">
+			<div class="content-wrapper clearfix">
+				<div class="author-avatar">
+					<img alt='' src='https://secure.gravatar.com/avatar/ea6be35ff31bf7eba02c999d1d41eff2?s=96&#038;d=wp_user_avatar&#038;r=g' srcset='https://secure.gravatar.com/avatar/ea6be35ff31bf7eba02c999d1d41eff2?s=192&#038;d=wp_user_avatar&#038;r=g 2x' class='avatar avatar-96 photo' height='96' width='96' loading='lazy' decoding='async'/>				</div>
+				<div class="author-meta">
+					<div class="author-meta__content">
+						<span>written by</span>
+						<h4>MDSec Research</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section class="testing">
+	<div class="content-wrapper">
+		<h2>Ready to engage<br>with MDSec?</h2>
+		<div class="button">
+			<a href="https://www.mdsec.co.uk/contact">
+				Get in touch
+			</a>
+		</div>
+	</div>
+</section>		
+	</section>
+
+
+
+
+	<section class="newsletter">
+	<div class="content-wrapper clearfix">
+		<div class="newsletter-left">
+			<p>
+				Stay updated with the latest <br>news from MDSec.
+			</p>
+		</div>
+		<div class="newsletter-right">
+			<div class="frm_forms  with_frm_style frm_style_formidable-style" id="frm_form_2_container" >
+<form enctype="multipart/form-data" method="post" class="frm-show-form  frm_js_validate " id="form_newslettersignupform" >
+<div class="frm_form_fields ">
+<fieldset>
+<legend class="frm_screen_reader">Newsletter Signup Form</legend>
+
+<div class="frm_fields_container">
+<input type="hidden" name="frm_action" value="create" />
+<input type="hidden" name="form_id" value="2" />
+<input type="hidden" name="frm_hide_fields_2" id="frm_hide_fields_2" value="" />
+<input type="hidden" name="form_key" value="newslettersignupform" />
+<input type="hidden" name="item_meta[0]" value="" />
+<input type="hidden" id="frm_submit_entry_2" name="frm_submit_entry_2" value="c375449fcc" /><input type="hidden" name="_wp_http_referer" value="/2020/04/designing-the-adversary-simulation-lab/" /><div id="frm_field_10_container" class="frm_form_field form-field  frm_none_container frm_full">
+    <label for="field_nkjbj" id="field_nkjbj_label" class="frm_primary_label">Email
+        <span class="frm_required"></span>
+    </label>
+    <input type="email" id="field_nkjbj" name="item_meta[10]" value=""  placeholder="Enter your email for updates" data-invmsg="Email is invalid" aria-invalid="false"  />
+    
+    
+</div>
+<div id="frm_field_11_container" class="frm_form_field form-field  frm_none_container frm_first frm_full">
+    <label for="g-recaptcha-response" id="field_ah4d8_label" class="frm_primary_label">
+        <span class="frm_required"></span>
+    </label>
+    <div  id="field_ah4d8" class="frm-g-recaptcha" data-sitekey="6Lc27L0ZAAAAAMV4QCtKwWRbT-Hm1FnY6IKqcSxw" data-size="invisible" data-theme="light"></div>
+    
+    
+</div>
+	<input type="hidden" name="item_key" value="" />
+				<div class="frm__6539d1f4bfefd">
+				<label for="frm_email_2"  style="display:none;">
+					If you are human, leave this field blank.				</label>
+				<input  id="frm_email_2" type="text" class="frm_verify" name="frm__6539d1f4bfefd" value="" autocomplete="off"  style="display:none;" />
+			</div>
+		<div class="frm_submit">
+
+<button class="frm_button_submit" type="submit"  >Submit</button>
+
+</div></div>
+</fieldset>
+</div>
+
+</form>
+</div>
+			
+		</div>
+	</div>
+</section>
+
+		</div>
+	<!-- Site Wrapper End -->
+	
+	<!-- Footer Start -->	
+	<footer>
+		<div class="content-wrapper clearfix">
+			<div class="footer-col">
+				<div class="footer-logo">
+					<a href="https://www.mdsec.co.uk" title="MDSec">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/mdsec-logo.svg" alt="MDsec">
+					</a>
+				</div>
+			</div>
+			<div class="footer-col">
+				<h3>Services</h3>
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="https://www.mdsec.co.uk/our-services/adversary-simulation/">Adversary Simulation</a></li>
+						<li><a href="https://www.mdsec.co.uk/our-services/applicaton-security/">Application Security</a></li>
+						<li><a href="https://www.mdsec.co.uk/our-services/penetration-testing/">Penetration Testing</a></li>
+						<li><a href="https://www.mdsec.co.uk/our-services/response/">Response</a></li>
+					</ul>
+				</nav>
+				<h3>Resource Centre</h3>
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="https://www.mdsec.co.uk/knowledge-centre/research/">Research</a></li>
+						<li><a href="https://www.mdsec.co.uk/knowledge-centre/training/">Training</a></li>
+						<li><a href="https://www.mdsec.co.uk/knowledge-centre/insights/">Insights</a></li>
+					</ul>
+				</nav>				
+			</div>
+			<div class="footer-col">
+				<h3>Company</h3>
+				<nav class="footer-nav">
+					<ul>
+						<li><a href="https://www.mdsec.co.uk/about/">About</a></li>
+						<li><a href="https://www.mdsec.co.uk/contact/">Contact</a></li>
+						<li><a href="https://www.mdsec.co.uk/careers/">Careers</a></li>
+						<li><a href="https://www.mdsec.co.uk/privacy-policy/">Privacy</a></li>
+					</ul>
+				</nav>
+				<p>
+					t: +44 (0) 1625 263 503<br>
+					e: <a href="mailto:contact@mdsec.co.uk">contact@mdsec.co.uk</a>
+				</p>
+				<p>
+					32A Park Green<br>
+					Macclesfield<br>
+					Cheshire<br>
+					SK11 7NA
+				</p>
+			</div>
+			<div class="footer-col">
+				<h3>Accreditations</h3>
+				<div class="logo-list clearfix">
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/logos/best.png" alt="Best">
+					</div>
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/uploads/2019/11/check-whitetrans.png" alt="IT Health Check Service">
+					</div>
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/logos/crest-star.png" alt="Crest Star">
+					</div>
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/logos/crest.png" alt="Crest">
+					</div>
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/logos/cyber-essentials.png" alt="Cyber Essentials">
+					</div>
+					<div class="logo-list__item">
+						<img src="https://www.mdsec.co.uk/wp-content/themes/mdsec/img/logos/british-assessment-bureau.png" alt="British Assessment Bureau">
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<div class="end clearfix">
+		<div class="end__left">
+			Copyright 2024 MDSec
+		</div>
+		<div class="end__right">
+			<!--<a href="#">Privacy Policy</a>-->
+		</div>
+	</div>
+	<!-- Footer End -->
+	
+    <script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-includes/js/jquery/jquery.js?ver=1.11.0" id="jquery-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/main.js?ver=1" id="main-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/highlight.min.js?ver=1" id="prism-js-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/isotope.pkgd.min.js?ver=1" id="isotope-js-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/jquery.matchHeight.js?ver=1.0.0" id="matchheight-js-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/themes/mdsec/js/modernizr.js?ver=2.8.3" id="modernizr-script-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" id="formidable-js-extra">
+/* <![CDATA[ */
+var frm_js = {"ajax_url":"https:\/\/www.mdsec.co.uk\/wp-admin\/admin-ajax.php","images_url":"https:\/\/www.mdsec.co.uk\/wp-content\/plugins\/formidable\/images","loading":"Loading\u2026","remove":"Remove","offset":"4","nonce":"73c8605833","id":"ID","no_results":"No results match","file_spam":"That file looks like Spam.","calc_error":"There is an error in the calculation in the field with key","empty_fields":"Please complete the preceding required fields before uploading a file.","focus_first_error":"1","include_alert_role":"1","include_resend_email":""};
+/* ]]> */
+</script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" src="https://www.mdsec.co.uk/wp-content/plugins/formidable/js/frm.min.js?ver=6.16.2" id="formidable-js"></script>
+<script type="c69b1068e3d6828ff35a0303-text/javascript" defer="defer" async="async" src="https://www.google.com/recaptcha/api.js?onload=frmRecaptcha&amp;render=explicit&amp;ver=3" id="captcha-api-js"></script>
+
+	<script type="c69b1068e3d6828ff35a0303-text/javascript">
+		
+		$grid = jQuery('.grid').isotope({
+			itemSelector: '.grid-item',
+			percentPosition: true,
+			masonry: {
+			columnWidth: '.grid-sizer',
+			gutter: '.gutter-sizer',
+			}
+		});
+
+		jQuery('.filter-group').on( 'click', 'li', function() {
+			var filterValue = jQuery(this).attr('data-filter');
+			var filterName = jQuery(this).attr('data-name');
+			$grid.isotope({ filter: filterValue });
+			var elems = $grid.isotope('getFilteredItemElements');
+			jQuery(".sort-group-item").removeClass('active');
+
+		});	
+
+	</script>
+	<script type="c69b1068e3d6828ff35a0303-text/javascript" src='/wp-content/themes/mdsec/jquery.marquee.min.js'></script>		
+	<script type="c69b1068e3d6828ff35a0303-text/javascript">
+	jQuery(window).load(function() {
+		jQuery('.message').marquee({
+			//speed in milliseconds of the marquee
+			duration: 12000,
+			//gap in pixels between the tickers
+			gap: 0,
+			//time in milliseconds before the marquee will start animating
+			delayBeforeStart: 500,
+			//'left' or 'right'
+			direction: 'left',
+			//true or false - should the marquee be duplicated to show an effect of continues flow
+			duplicated: true,
+			pauseOnHover: true,
+			startVisible: true
+		});
+		
+		jQuery('.message-item').css('opacity', '1');
+	});
+	</script>
+	<script type="c69b1068e3d6828ff35a0303-text/javascript">hljs.initHighlightingOnLoad();</script>
+
+
+
+    	    			
+<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="c69b1068e3d6828ff35a0303-|49" defer></script></body>
+<!-- Body End -->
+
+</html>
