@@ -1,3 +1,11 @@
+Make sure to replace the placeholder values like "your-aws-region", "ami-xxxxxxxxxxxxxxxxx", and "your-instance-type" with your specific AWS region, Windows Server 2019 AMI ID, and the desired instance type.
+You can customize the CPU core count, memory size, and disk size by changing the values of the cpu_count, memory_size, and disk_size variables.
+To apply the configuration, run the following commands:
+
+terraform init
+terraform apply
+Remember to have your AWS credentials configured properly on your machine. This script is a basic starting point, and you can extend it with additional configurations as needed for your specific use case.
+
 provider "aws" {
   region = "your-aws-region"
 }
