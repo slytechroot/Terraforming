@@ -1,0 +1,42 @@
+provider "aws" {
+  region = "your-aws-region"
+}
+
+resource "aws_instance" "windows_instance" {
+  ami           = "ami-xxxxxxxxxxxxxxxxx"  # Windows Server 2019 AMI ID
+  instance_type = "your-instance-type"     # Choose an appropriate instance type
+
+  // Customize the instance options
+  cpu_core_count = var.cpu_count
+  memory_size    = var.memory_size
+
+  root_block_device {
+    volume_size = var.disk_size
+  }
+
+  // Add more configuration as needed
+
+  tags = {
+    Name = "WindowsServer2019Instance"
+    // Add more tags as needed
+  }
+}
+
+// Define variables
+variable "cpu_count" {
+  description = "Number of CPU cores for the instance"
+  type        = number
+  default     = 2  # Change as needed
+}
+
+variable "memory_size" {
+  description = "Memory size in MiB for the instance"
+  type        = number
+  default     = 4096  # Change as needed
+}
+
+variable "disk_size" {
+  description = "Root volume size in GiB"
+  type        = number
+  default     = 50  # Change as needed
+}
